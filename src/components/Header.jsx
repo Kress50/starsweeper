@@ -1,11 +1,7 @@
 import React from "react";
-import { useContext } from "react";
 import { NavLink } from "react-router-dom";
-import GameContext from "../store/game-context";
 
 export default function Header() {
-	const ctx = useContext(GameContext);
-
 	return (
 		<header>
 			<NavLink to="/">Starsweeper</NavLink>
@@ -13,5 +9,3 @@ export default function Header() {
 		</header>
 	);
 }
-
-// onClick={ctx.onEnd}
