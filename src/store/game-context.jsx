@@ -14,6 +14,7 @@ const GameContext = createContext({
 	mineCount: 0,
 	onStart: () => {},
 	onEnd: () => {},
+	onReset: () => {},
 	onDifficulty: () => {},
 	onGenerate: () => {},
 	onLeftClick: () => {},
@@ -38,6 +39,12 @@ export function GameContextProvider(props) {
 	function endHandler() {
 		setHasStarted(false);
 		setGameState("default");
+	}
+
+	function resetHandler() {
+		setGameState("default");
+		setMineCount(difficulty.mines);
+		generateBoardHandler(difficulty.width, difficulty.height, difficulty.mines);
 	}
 
 	function difficultyHandler(diff) {
@@ -171,6 +178,7 @@ export function GameContextProvider(props) {
 				mineCount: mineCount,
 				onStart: startHandler,
 				onEnd: endHandler,
+				onReset: resetHandler,
 				onDifficulty: difficultyHandler,
 				onGenerate: generateBoardHandler,
 				onLeftClick: leftClickHandler,

@@ -10,17 +10,6 @@ export default function Index() {
 		ctx.onDifficulty(e);
 	}
 
-	function resetHandler(e) {
-		e.preventDefault();
-		ctx.onEnd();
-	}
-
-	function outputIndexRenderHandler() {
-		if (ctx.gameState === "default") return "Game on!";
-		if (ctx.gameState === "defeat") return "Defeat!";
-		if (ctx.gameState === "win") return "Congratulations!";
-	}
-
 	return (
 		<React.Fragment>
 			{!ctx.hasStarted && (
@@ -36,10 +25,7 @@ export default function Index() {
 			)}
 			{ctx.hasStarted && (
 				<section>
-					<div>{outputIndexRenderHandler()}</div>
-					<div>{ctx.mineCount}</div>
 					<Board />
-					<button onClick={resetHandler}>Reset Board</button>
 				</section>
 			)}
 		</React.Fragment>
