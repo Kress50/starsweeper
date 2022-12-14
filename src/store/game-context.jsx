@@ -12,7 +12,8 @@ const GameContext = createContext({
 	difficulty: {},
 	board: [],
 	mineCount: 0,
-	onStart: () => {},
+	score: 0,
+	setScore: () => {},
 	onEnd: () => {},
 	onReset: () => {},
 	onDifficulty: () => {},
@@ -31,19 +32,19 @@ export function GameContextProvider(props) {
 	});
 	const [board, setBoard] = useState([]);
 	const [mineCount, setMineCount] = useState(0);
-
-	function startHandler() {
-		setHasStarted(true);
-	}
+	const [score, setScore] = useState(0);
 
 	function endHandler() {
 		setHasStarted(false);
 		setGameState("default");
 	}
 
+	function scoreHandler() {}
+
 	function resetHandler() {
 		setGameState("default");
 		setMineCount(difficulty.mines);
+		setScore(0);
 		generateBoardHandler(difficulty.width, difficulty.height, difficulty.mines);
 	}
 
@@ -54,7 +55,7 @@ export function GameContextProvider(props) {
 			setDifficulty({
 				width: 9,
 				height: 9,
-				mines: 10,
+				mines: 1,
 			});
 			setMineCount(10);
 		}
@@ -74,7 +75,7 @@ export function GameContextProvider(props) {
 			});
 			setMineCount(99);
 		}
-		startHandler();
+		setHasStarted(true);
 	}
 
 	function generateBoardHandler(height = 0, width = 0, mines = 0) {
@@ -176,7 +177,8 @@ export function GameContextProvider(props) {
 				difficulty: difficulty,
 				board: board,
 				mineCount: mineCount,
-				onStart: startHandler,
+				score: score,
+				setScore: setScore,
 				onEnd: endHandler,
 				onReset: resetHandler,
 				onDifficulty: difficultyHandler,

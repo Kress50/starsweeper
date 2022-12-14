@@ -5,7 +5,8 @@ export default function Header() {
 	return (
 		<header>
 			<NavLink to="/">Starsweeper</NavLink>
-			<NavLink to="/highscores">Highscores</NavLink>
+			<button>Highscores</button>
+			<NavLink to="/login">Starsweeper</NavLink>
 		</header>
 	);
 }

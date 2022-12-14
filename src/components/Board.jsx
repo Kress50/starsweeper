@@ -19,6 +19,16 @@ export function Board() {
 		ctx.onReset();
 	}, []);
 
+	useEffect(() => {
+		const interval = setInterval(() => {
+			ctx.setScore((prev) => prev + 1);
+		}, 1000);
+
+		return () => {
+			clearInterval(interval);
+		};
+	}, []);
+
 	function outputIndexRenderHandler() {
 		if (ctx.gameState === "default") return "Game on!";
 		if (ctx.gameState === "defeat") return "Defeat!";
@@ -28,7 +38,10 @@ export function Board() {
 	return (
 		<React.Fragment>
 			<div>{outputIndexRenderHandler()}</div>
-			<div>{ctx.mineCount}</div>
+			<div>
+				<div>{ctx.mineCount}</div>
+				<div>{ctx.score}</div>
+			</div>
 			<div
 				style={{
 					display: "grid",

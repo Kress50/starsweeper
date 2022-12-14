@@ -1,8 +1,8 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import GameContext from "../store/game-context";
 import { Board } from "../components/Board";
 
-export default function Index() {
+export default function Index(props) {
 	const ctx = useContext(GameContext);
 
 	function gameStartHandler(e) {
@@ -28,6 +28,10 @@ export default function Index() {
 					<Board />
 				</section>
 			)}
+			<div>
+				<button onClick={props.shownHandler}>Rules</button>
+				<button onClick={props.shownHandler}>Highscores</button>
+			</div>
 		</React.Fragment>
 	);
 }
