@@ -25,6 +25,7 @@ const GameContext = createContext({
 
 export function GameContextProvider(props) {
 	const [hasStarted, setHasStarted] = useState(false);
+	console.log(hasStarted);
 	const [gameState, setGameState] = useState("default");
 	const [difficulty, setDifficulty] = useState({
 		width: 0,
@@ -56,7 +57,7 @@ export function GameContextProvider(props) {
 			setDifficulty({
 				width: 9,
 				height: 9,
-				mines: 1,
+				mines: 10,
 			});
 			setMineCount(10);
 		}
@@ -139,6 +140,7 @@ export function GameContextProvider(props) {
 
 		if (updatedBoard[rowIndex][colIndex].mine) {
 			setGameState("defeat");
+			setScoreIsActive(false);
 			setBoard(revealedBoard);
 			return;
 		}

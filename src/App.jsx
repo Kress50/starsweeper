@@ -6,15 +6,16 @@ import Index from "./pages/Index";
 import GameContext from "./store/game-context";
 import Rules from "./components/Layout/Rules";
 import Highscores from "./components/Layout/Highscores";
-import Login from "./pages/Login";
 import LoginModal from "./components/Layout/LoginModal";
+import Signup from "./pages/Signup";
+import Signin from "./pages/Login";
+import AuthContext from "./store/auth-context";
 
 function App() {
 	const ctx = useContext(GameContext);
+	const authCtx = useContext(AuthContext);
 	const [isRulesShown, setIsRulesShown] = useState(false);
 	const [isHighscoresShown, setIsHighscoresShown] = useState(false);
-	const [isLoggedIn, setIsLoggedIn] = useState(false);
-	const [isGuest, setIsGuest] = useState(false);
 
 	function shownHandler(e) {
 		e.preventDefault();
@@ -32,13 +33,14 @@ function App() {
 
 	return (
 		<React.Fragment>
-			{!isLoggedIn && !isGuest && (
-				<LoginModal onLoginGuest={guestHandler}></LoginModal>
+			{!authCtx.isLoggedIn && !authCtx.isLoggedGuest && (
+				<LoginModal></LoginModal>
 			)}
 			{ctx.hasStarted && <Header showModals={shownHandler} />}
 			<Routes>
 				<Route path="/" element={<Index shownHandler={shownHandler} />}></Route>
-				<Route path="/login" element={<Login />}></Route>
+				<Route path="/signin" element={<Signin />}></Route>
+				<Route path="/signup" element={<Signup />}></Route>
 				<Route path="*" element={<Index />}></Route>
 			</Routes>
 			{isRulesShown && <Rules></Rules>}

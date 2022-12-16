@@ -1,6 +1,6 @@
 import Cell from "./Cell";
 import React, { useContext, useEffect } from "react";
-import GameContext from "../store/game-context";
+import GameContext from "../../store/game-context";
 import Timer from "./Timer";
 
 export function Board() {
@@ -38,7 +38,7 @@ export function Board() {
 					display: "grid",
 					gridTemplateColumns: `repeat(${ctx.difficulty.width}, 30px)`,
 					gridTemplateRows: `repeat(${ctx.difficulty.height}, 30px)`,
-					gridAutoFlow: "column",
+					// gridAutoFlow: "column",
 					placeContent: "center",
 				}}
 			>

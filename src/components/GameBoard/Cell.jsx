@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import FlareIcon from "@mui/icons-material/Flare";
-import GameContext from "../store/game-context";
+import GameContext from "../../store/game-context";
 
 export default function Cell({ col, rowIndex, colIndex }) {
 	const ctx = useContext(GameContext);
@@ -11,7 +11,7 @@ export default function Cell({ col, rowIndex, colIndex }) {
 		if (mine) return <FlareIcon />;
 		if (neighbours) return neighbours;
 	}
-	
+
 	return (
 		<div
 			style={{

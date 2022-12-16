@@ -1,10 +1,11 @@
 import React, { useContext } from "react";
 import { useEffect } from "react";
-import GameContext from "../store/game-context";
+import GameContext from "../../store/game-context";
 
 export default function Timer() {
 	const ctx = useContext(GameContext);
 
+	//Timer display updates score every second depending on state of the game
 	useEffect(() => {
 		let interval = null;
 		if (!ctx.scoreIsActive) {

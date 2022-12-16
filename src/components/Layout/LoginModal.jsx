@@ -1,16 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
+import AuthContext from "../../store/auth-context";
 import Modal from "../UI/Modal";
 
-export default function LoginModal(props) {
+export default function LoginModal() {
+	const authCtx = useContext(AuthContext);
+
 	return (
 		<React.Fragment>
 			<h1>Welcome to Starsweeper!</h1>
 			<p>To play this game you need to authenticate!</p>
 			<div>
-				<button>Login</button>
+				<div>
+					<button onClick={authCtx.signInWithGoogleHandler}>Google</button>
+				</div>
+				<button>Sign in</button>
 				<button>Sign-up</button>
 			</div>
-			<button onClick={props.onLoginGuest}>Play as a guest</button>
+			<button onClick={authCtx.signInAsGuestHandler}>Play as a guest</button>
 		</React.Fragment>
 	);
 }
