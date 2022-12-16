@@ -11,7 +11,7 @@ export default function Cell({ col, rowIndex, colIndex }) {
 		if (mine) return <FlareIcon />;
 		if (neighbours) return neighbours;
 	}
-
+	
 	return (
 		<div
 			style={{

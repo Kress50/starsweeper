@@ -1,6 +1,7 @@
 import Cell from "./Cell";
 import React, { useContext, useEffect } from "react";
 import GameContext from "../store/game-context";
+import Timer from "./Timer";
 
 export function Board() {
 	const ctx = useContext(GameContext);
@@ -19,16 +20,6 @@ export function Board() {
 		ctx.onReset();
 	}, []);
 
-	useEffect(() => {
-		const interval = setInterval(() => {
-			ctx.setScore((prev) => prev + 1);
-		}, 1000);
-
-		return () => {
-			clearInterval(interval);
-		};
-	}, []);
-
 	function outputIndexRenderHandler() {
 		if (ctx.gameState === "default") return "Game on!";
 		if (ctx.gameState === "defeat") return "Defeat!";
@@ -40,7 +31,7 @@ export function Board() {
 			<div>{outputIndexRenderHandler()}</div>
 			<div>
 				<div>{ctx.mineCount}</div>
-				<div>{ctx.score}</div>
+				<Timer />
 			</div>
 			<div
 				style={{

@@ -13,6 +13,7 @@ const GameContext = createContext({
 	board: [],
 	mineCount: 0,
 	score: 0,
+	scoreIsActive: false,
 	setScore: () => {},
 	onEnd: () => {},
 	onReset: () => {},
@@ -33,18 +34,18 @@ export function GameContextProvider(props) {
 	const [board, setBoard] = useState([]);
 	const [mineCount, setMineCount] = useState(0);
 	const [score, setScore] = useState(0);
+	const [scoreIsActive, setScoreIsActive] = useState(false);
 
 	function endHandler() {
 		setHasStarted(false);
 		setGameState("default");
 	}
 
-	function scoreHandler() {}
-
 	function resetHandler() {
 		setGameState("default");
 		setMineCount(difficulty.mines);
 		setScore(0);
+		setScoreIsActive(true);
 		generateBoardHandler(difficulty.width, difficulty.height, difficulty.mines);
 	}
 
@@ -76,6 +77,7 @@ export function GameContextProvider(props) {
 			setMineCount(99);
 		}
 		setHasStarted(true);
+		setScoreIsActive(true);
 	}
 
 	function generateBoardHandler(height = 0, width = 0, mines = 0) {
@@ -145,6 +147,7 @@ export function GameContextProvider(props) {
 		if (winConditionHandler(updatedBoard, difficulty) === true) {
 			setGameState("win");
 			setBoard(revealedBoard);
+			setScoreIsActive(false);
 			return;
 		}
 		setBoard(updatedBoard);
@@ -179,6 +182,7 @@ export function GameContextProvider(props) {
 				mineCount: mineCount,
 				score: score,
 				setScore: setScore,
+				scoreIsActive: scoreIsActive,
 				onEnd: endHandler,
 				onReset: resetHandler,
 				onDifficulty: difficultyHandler,
