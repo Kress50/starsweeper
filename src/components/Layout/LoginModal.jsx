@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import AuthContext from "../../store/auth-context";
-import Modal from "../UI/Modal";
 
 export default function LoginModal() {
 	const authCtx = useContext(AuthContext);
@@ -13,8 +13,9 @@ export default function LoginModal() {
 				<div>
 					<button onClick={authCtx.signInWithGoogleHandler}>Google</button>
 				</div>
-				<button>Sign in</button>
-				<button>Sign-up</button>
+				<div>
+					<Link to="/authenticate">Email</Link>
+				</div>
 			</div>
 			<button onClick={authCtx.signInAsGuestHandler}>Play as a guest</button>
 		</React.Fragment>

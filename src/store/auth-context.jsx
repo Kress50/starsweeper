@@ -1,5 +1,9 @@
-import { signInWithPopup } from "firebase/auth";
-import { createContext, useContext, useState } from "react";
+import {
+	createUserWithEmailAndPassword,
+	signInWithEmailAndPassword,
+	signInWithPopup,
+} from "firebase/auth";
+import { createContext, useState } from "react";
 import { auth, providerGoogle } from "../../firebase-config";
 
 const AuthContext = createContext({
@@ -9,6 +13,8 @@ const AuthContext = createContext({
 	signOutHandler: () => {},
 	signInAsGuestHandler: () => {},
 	signInWithGoogleHandler: () => {},
+	signUpWithEmailHandler: () => {},
+	signInWithEmailHandler: () => {},
 });
 
 export function AuthContextProvider(props) {
@@ -51,7 +57,7 @@ export function AuthContextProvider(props) {
 	const signInWithGoogleHandler = () => {
 		signInWithPopup(auth, providerGoogle)
 			.then((result) => {
-				const username = result.user.displayName;
+				const username = result.user.email;
 				const uid = result.user.uid;
 				setUser({
 					id: uid,
@@ -61,8 +67,40 @@ export function AuthContextProvider(props) {
 				saveToLocalStorageHandler(uid, username);
 			})
 			.catch((error) => {
-				alert(`Something went wrong! Error: ${error}`);
+				return `Something went wrong! Error: ${error}`;
 			});
+	};
+
+	const signUpWithEmailHandler = async (email, password) => {
+		try {
+			const user = await createUserWithEmailAndPassword(auth, email, password);
+			const username = user.user.email;
+			const uid = user.user.uid;
+			setUser({
+				id: uid,
+				name: username,
+			});
+			setIsLoggedIn(true);
+			saveToLocalStorageHandler(uid, username);
+		} catch (error) {
+			throw error;
+		}
+	};
+
+	const signInWithEmailHandler = async (email, password) => {
+		try {
+			const user = await signInWithEmailAndPassword(auth, email, password);
+			const username = user.user.email;
+			const uid = user.user.uid;
+			setUser({
+				id: uid,
+				name: username,
+			});
+			setIsLoggedIn(true);
+			saveToLocalStorageHandler(uid, username);
+		} catch (error) {
+			throw error;
+		}
 	};
 
 	return (
@@ -74,6 +112,8 @@ export function AuthContextProvider(props) {
 				signOutHandler: signOutHandler,
 				signInAsGuestHandler: signInAsGuestHandler,
 				signInWithGoogleHandler: signInWithGoogleHandler,
+				signUpWithEmailHandler: signUpWithEmailHandler,
+				signInWithEmailHandler: signInWithEmailHandler,
 			}}
 		>
 			{props.children}

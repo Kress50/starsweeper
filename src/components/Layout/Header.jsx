@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import AuthContext from "../../store/auth-context";
 import GameContext from "../../store/game-context";
 
@@ -14,12 +14,11 @@ export default function Header() {
 
 	return (
 		<header>
-			<NavLink to="/">Starsweeper</NavLink>
-			<button>Highscores</button>
+			<Link to="/">Starsweeper</Link>
 			{authCtx.user.id ? (
 				<button onClick={headerSignOutHandler}>Sign out</button>
 			) : (
-				<NavLink to="/signin">Sign-in</NavLink>
+				<Link to="/authenticate">Sign-in</Link>
 			)}
 		</header>
 	);

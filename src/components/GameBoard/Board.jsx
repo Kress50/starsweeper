@@ -2,9 +2,11 @@ import Cell from "./Cell";
 import React, { useContext, useEffect } from "react";
 import GameContext from "../../store/game-context";
 import Timer from "./Timer";
+import AuthContext from "../../store/auth-context";
 
 export function Board() {
 	const ctx = useContext(GameContext);
+	const authCtx = useContext(AuthContext);
 
 	function difficultyHandler(e) {
 		e.preventDefault();
@@ -53,6 +55,9 @@ export function Board() {
 					))
 				)}
 			</div>
+			{authCtx.isLoggedIn && ctx.gameState === "win" && (
+				<button>Submit Highscore!</button>
+			)}
 			<div>
 				<button onClick={difficultyHandler}>Change Difficulty</button>
 				<button onClick={resetHandler}>Reset Board</button>
