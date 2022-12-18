@@ -15,11 +15,14 @@ export default function Header() {
 	return (
 		<header>
 			<Link to="/">Starsweeper</Link>
-			{authCtx.user.id ? (
-				<button onClick={headerSignOutHandler}>Sign out</button>
-			) : (
-				<Link to="/authenticate">Sign-in</Link>
-			)}
+			<div>
+				<p>Welcome {authCtx.user.name}</p>
+				{authCtx.user.id ? (
+					<button onClick={headerSignOutHandler}>Sign out</button>
+				) : (
+					<Link to="/authenticate">Sign-in</Link>
+				)}
+			</div>
 		</header>
 	);
 }

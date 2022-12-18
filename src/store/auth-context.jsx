@@ -51,13 +51,17 @@ export function AuthContextProvider(props) {
 
 	const signInAsGuestHandler = () => {
 		setIsLoggedGuest(true);
+		setUser({
+			id: null,
+			name: "Guest",
+		});
 	};
 
 	//Google authenticator via firebase
 	const signInWithGoogleHandler = () => {
 		signInWithPopup(auth, providerGoogle)
 			.then((result) => {
-				const username = result.user.email;
+				const username = result.user.email.split("@")[0];
 				const uid = result.user.uid;
 				setUser({
 					id: uid,
@@ -74,7 +78,7 @@ export function AuthContextProvider(props) {
 	const signUpWithEmailHandler = async (email, password) => {
 		try {
 			const user = await createUserWithEmailAndPassword(auth, email, password);
-			const username = user.user.email;
+			const username = user.user.email.split("@")[0];
 			const uid = user.user.uid;
 			setUser({
 				id: uid,
@@ -90,7 +94,7 @@ export function AuthContextProvider(props) {
 	const signInWithEmailHandler = async (email, password) => {
 		try {
 			const user = await signInWithEmailAndPassword(auth, email, password);
-			const username = user.user.email;
+			const username = user.user.email.split("@")[0];
 			const uid = user.user.uid;
 			setUser({
 				id: uid,

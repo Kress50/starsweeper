@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { auth } from "../../firebase-config";
 import AuthContext from "../store/auth-context";
 
 export default function Authenticate() {
@@ -75,10 +74,6 @@ export default function Authenticate() {
 	return (
 		<React.Fragment>
 			<div>{isLogin ? "Login" : "SignUp"}</div>
-			{isLogin && (
-				<button onClick={authCtx.signInWithGoogleHandler}>Google</button>
-			)}
-			<br></br>
 			<button onClick={modeSwitchHandler}>Switch</button>
 			<form onSubmit={onSubmitHandler}>
 				<label htmlFor="email">Email:</label>

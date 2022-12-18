@@ -25,12 +25,12 @@ const GameContext = createContext({
 
 export function GameContextProvider(props) {
 	const [hasStarted, setHasStarted] = useState(false);
-	console.log(hasStarted);
 	const [gameState, setGameState] = useState("default");
 	const [difficulty, setDifficulty] = useState({
 		width: 0,
 		height: 0,
 		mines: 0,
+		diff: "",
 	});
 	const [board, setBoard] = useState([]);
 	const [mineCount, setMineCount] = useState(0);
@@ -58,6 +58,7 @@ export function GameContextProvider(props) {
 				width: 9,
 				height: 9,
 				mines: 1,
+				diff: "easy",
 			});
 			setMineCount(10);
 		}
@@ -66,6 +67,7 @@ export function GameContextProvider(props) {
 				width: 16,
 				height: 16,
 				mines: 40,
+				diff: "medium",
 			});
 			setMineCount(40);
 		}
@@ -74,6 +76,7 @@ export function GameContextProvider(props) {
 				width: 30,
 				height: 16,
 				mines: 99,
+				diff: "hard",
 			});
 			setMineCount(99);
 		}
