@@ -1,8 +1,6 @@
 import React from "react";
-import { useContext } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
-import GameContext from "../../store/game-context";
 import HighscoreTable from "./HighscoreTable";
 import {
 	collection,
@@ -56,7 +54,8 @@ export default function Highscores() {
 		if (e.target.innerText === "Hard") setDifficulty("hard");
 	}
 
-	const fetchMoreHighscores = async () => {
+	const fetchMoreHighscores = async (e) => {
+		e.preventDefault();
 		setIsLoadingButton(true);
 		const q = query(
 			highscoreRef,
