@@ -1,6 +1,5 @@
 import { Typography } from "@mui/joy";
 import React, { useContext } from "react";
-import { useState } from "react";
 import { useEffect } from "react";
 import GameContext from "../../store/game-context";
 
