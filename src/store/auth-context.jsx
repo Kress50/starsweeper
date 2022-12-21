@@ -2,6 +2,7 @@ import {
 	createUserWithEmailAndPassword,
 	signInWithEmailAndPassword,
 	signInWithPopup,
+	signOut,
 } from "firebase/auth";
 import { createContext, useState } from "react";
 import { auth, providerGoogle } from "../../firebase-config";
@@ -40,13 +41,19 @@ export function AuthContextProvider(props) {
 	}
 
 	function signOutHandler() {
-		setUser({
-			id: null,
-			name: null,
-		});
-		setIsLoggedIn(false);
-		setIsLoggedGuest(false);
-		purgeFromLocalStorageHandler();
+		signOut(auth)
+			.then(() => {
+				setUser({
+					id: null,
+					name: null,
+				});
+				setIsLoggedIn(false);
+				setIsLoggedGuest(false);
+				purgeFromLocalStorageHandler();
+			})
+			.catch((error) => {
+				console.log(error);
+			});
 	}
 
 	const signInAsGuestHandler = () => {

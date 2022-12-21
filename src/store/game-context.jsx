@@ -12,9 +12,6 @@ const GameContext = createContext({
 	difficulty: {},
 	board: [],
 	mineCount: 0,
-	score: 0,
-	scoreIsActive: false,
-	setScore: () => {},
 	onEnd: () => {},
 	onReset: () => {},
 	onDifficulty: () => {},
@@ -34,8 +31,6 @@ export function GameContextProvider(props) {
 	});
 	const [board, setBoard] = useState([]);
 	const [mineCount, setMineCount] = useState(0);
-	const [score, setScore] = useState(0);
-	const [scoreIsActive, setScoreIsActive] = useState(false);
 
 	function endHandler() {
 		setHasStarted(false);
@@ -45,8 +40,6 @@ export function GameContextProvider(props) {
 	function resetHandler() {
 		setGameState("default");
 		setMineCount(difficulty.mines);
-		setScore(0);
-		setScoreIsActive(true);
 		generateBoardHandler(difficulty.width, difficulty.height, difficulty.mines);
 	}
 
@@ -62,7 +55,7 @@ export function GameContextProvider(props) {
 			});
 			setMineCount(10);
 		}
-		if (diff.target.innerText === "Medium") {
+		if (diff.target.innerText === "Normal") {
 			setDifficulty({
 				width: 16,
 				height: 16,
@@ -81,19 +74,18 @@ export function GameContextProvider(props) {
 			setMineCount(99);
 		}
 		setHasStarted(true);
-		setScoreIsActive(true);
 	}
 
 	function generateBoardHandler(height = 0, width = 0, mines = 0) {
 		// Generating empty minesweeper array (board)
 		let boardArray = Array(width)
 			.fill()
-			.map((_, indexW) =>
+			.map((_, indexH) =>
 				Array(height)
 					.fill()
-					.map((_, indexH) => ({
-						x: indexW,
-						y: indexH,
+					.map((_, indexW) => ({
+						x: indexH,
+						y: indexW,
 						mine: false,
 						empty: false,
 						revealed: false,
@@ -143,7 +135,6 @@ export function GameContextProvider(props) {
 
 		if (updatedBoard[rowIndex][colIndex].mine) {
 			setGameState("defeat");
-			setScoreIsActive(false);
 			setBoard(revealedBoard);
 			return;
 		}
@@ -152,7 +143,6 @@ export function GameContextProvider(props) {
 		if (winConditionHandler(updatedBoard, difficulty) === true) {
 			setGameState("win");
 			setBoard(revealedBoard);
-			setScoreIsActive(false);
 			return;
 		}
 		setBoard(updatedBoard);
@@ -160,7 +150,11 @@ export function GameContextProvider(props) {
 
 	function rightClickHandler(e, rowIndex = 0, colIndex = 0) {
 		e.preventDefault();
-		if (board[rowIndex][colIndex].revealed) return;
+		if (
+			board[rowIndex][colIndex].revealed &&
+			!board[rowIndex][colIndex].flagged
+		)
+			return;
 		const updatedBoard = produce(board, (draft) => {
 			//Checks for flag availability
 			if (mineCount <= 0 && !draft[rowIndex][colIndex].flagged) return;
@@ -185,9 +179,6 @@ export function GameContextProvider(props) {
 				difficulty: difficulty,
 				board: board,
 				mineCount: mineCount,
-				score: score,
-				setScore: setScore,
-				scoreIsActive: scoreIsActive,
 				onEnd: endHandler,
 				onReset: resetHandler,
 				onDifficulty: difficultyHandler,
