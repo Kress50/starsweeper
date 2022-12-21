@@ -1,14 +1,12 @@
 import { Typography } from "@mui/joy";
-import React, { useContext } from "react";
-import GameContext from "../../store/game-context";
+import React from "react";
 
 export default function Title() {
-	const ctx = useContext(GameContext);
-
 	return (
 		<Typography
 			level="display1"
 			component="h1"
+			className="animate__animated animate__bounceInDown"
 			sx={{
 				fontSize: "8rem",
 				fontWeight: "bold",

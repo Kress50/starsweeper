@@ -19,7 +19,9 @@ export default function Index() {
 				<LoginModal></LoginModal>
 			)}
 			<Box position="absolute" top="64px" marginLeft="-292px" left="50%">
-				{!ctx.hasStarted && <Title></Title>}
+				{!ctx.hasStarted && (authCtx.isLoggedGuest || authCtx.isLoggedIn) && (
+					<Title></Title>
+				)}
 			</Box>
 
 			<Box

@@ -50,7 +50,7 @@ export function GameContextProvider(props) {
 			setDifficulty({
 				width: 9,
 				height: 9,
-				mines: 1,
+				mines: 10,
 				diff: "easy",
 			});
 			setMineCount(10);

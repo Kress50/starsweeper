@@ -89,7 +89,6 @@ export default function Authenticate() {
 					returnScore: false,
 				}),
 			});
-			console.log(password);
 			if (isLogin) return;
 		}
 

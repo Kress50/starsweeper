@@ -24,10 +24,20 @@ export default function Cell({ col, rowIndex, colIndex }) {
 		if (revealed) return "success";
 	}
 
+	function randomNumberAnimation() {
+		let random = Math.random() * 3;
+		if (random > 0 && random <= 1)
+			return "animate__animated animate__bounceIn animate__faster";
+		if (random > 1 && random <= 2)
+			return "animate__animated animate__bounceIn animate__fast";
+		if (random > 2 && random <= 3) return "animate__animated animate__bounceIn";
+	}
+
 	return (
 		<Sheet
 			variant="outlined"
 			color={colorHandler(col)}
+			className={randomNumberAnimation()}
 			onClick={(e) => ctx.onLeftClick(e, rowIndex, colIndex)}
 			onContextMenu={(e) => ctx.onRightClick(e, rowIndex, colIndex)}
 			sx={{
