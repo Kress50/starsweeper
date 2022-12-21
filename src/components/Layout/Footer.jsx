@@ -29,9 +29,14 @@ export default function Footer() {
 							fontSize: "2rem",
 							borderRadius: 0,
 						}}
-						href="/"
+						href="https://github.com/Kress50/starsweeper"
 					>
-						<GitHubIcon />
+						<a
+							style={{ color: "inherit" }}
+							href="https://github.com/Kress50/starsweeper"
+						>
+							<GitHubIcon />
+						</a>
 					</Button>
 				</div>
 				<Typography level="h6" component="p">
