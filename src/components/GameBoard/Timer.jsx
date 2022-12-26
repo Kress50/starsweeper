@@ -1,11 +1,8 @@
 import { Typography } from "@mui/joy";
-import React, { useContext } from "react";
+import React from "react";
 import { useEffect } from "react";
-import GameContext from "../../store/game-context";
 
 export default function Timer(props) {
-	const ctx = useContext(GameContext);
-
 	// Timer display updates score every second depending on state of the game
 	useEffect(() => {
 		let interval = null;

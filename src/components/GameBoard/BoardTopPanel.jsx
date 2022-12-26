@@ -18,7 +18,7 @@ export default function BoardTopPanel() {
 	const [success, setSuccess] = useState(false);
 	const [error, setError] = useState(null);
 	const [score, setScore] = useState(0);
-	const [scoreIsActive, setScoreIsActive] = useState(true);
+	const [scoreIsActive, setScoreIsActive] = useState(false);
 
 	useEffect(() => {
 		setScoreIsActive((prev) => !prev);
